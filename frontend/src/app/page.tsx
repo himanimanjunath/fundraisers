@@ -5,7 +5,7 @@ import styles from './page.module.css'
 export default function HomePage() {
   return (
     <div className={styles.container}>
-      {/* Header */}
+      {/* header */}
       <header className={styles.header}>
         <div className={styles.headerContent}>
           <div className={styles.logo}>
@@ -23,12 +23,12 @@ export default function HomePage() {
         </div>
       </header>
 
-      {/* Hero Section */}
+      {/* Hero section */}
       <main className={styles.main}>
         <section className={styles.hero}>
           <div className={styles.heroContent}>
             <div className={styles.badge}>
-              <span>Supporting UC Davis Clubs</span>
+              <span className={styles.heroMiniText}>Supporting UC Davis Clubs</span>
             </div>
             
             <h1 className={styles.heroTitle}>
@@ -36,7 +36,7 @@ export default function HomePage() {
             </h1>
             
             <p className={styles.heroDescription}>
-              {'Discover fundraising events from UC Davis clubs and organizations. Support your community while enjoying downtown Davis.'}
+              {'Discover fundraising events from UC Davis clubs and support your community while enjoying downtown Davis!'}
             </p>
 
             <div className={styles.heroButtons}>
@@ -50,7 +50,8 @@ export default function HomePage() {
           </div>
         </section>
 
-        {/* Features Section */}
+
+        {/* advertising section */}
         <section className={styles.features}>
           <div className={styles.featuresContent}>
             <div className={styles.featureCard}>
@@ -86,7 +87,6 @@ export default function HomePage() {
         </section>
       </main>
 
-      {/* Footer */}
       <footer className={styles.footer}>
         <div className={styles.footerContent}>
           <p>© 2025 #include</p>

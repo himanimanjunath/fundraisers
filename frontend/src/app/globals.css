@@ -1,9 +1,6 @@
-/* UC Davis Fundraiser Platform - Global Styles */
-
-/* Color Variables */
 :root {
-  --color-primary: #002855; /* UC Davis Blue */
-  --color-secondary: #B49752; /* UC Davis Gold */
+  --color-primary: #002855; 
+  --color-secondary: #B49752; 
   --color-background: #ffffff;
   --color-foreground: #111827;
   --color-muted: #6b7280;
@@ -12,7 +9,6 @@
   --color-error: #ef4444;
 }
 
-/* Global Resets */
 * {
   margin: 0;
   padding: 0;
@@ -44,7 +40,6 @@ button {
   font-family: inherit;
 }
 
-/* Utility Classes */
 .sr-only {
   position: absolute;
   width: 1px;
