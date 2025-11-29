@@ -1,6 +1,6 @@
 import Link from "next/link"
-import { Heart, Calendar, MapPin } from 'lucide-react'
-import styles from './page.module.css'
+import { Heart, Calendar, MapPin } from "lucide-react"
+import styles from "./page.module.css"
 
 export default function HomePage() {
   return (
@@ -17,7 +17,11 @@ export default function HomePage() {
               <button className={styles.navButton}>Browse</button>
             </Link>
             <Link href="/login">
-              <button className={`${styles.navButton} ${styles.navButtonOutline}`}>Login</button>
+              <button
+                className={`${styles.navButton} ${styles.navButtonOutline}`}
+              >
+                Login
+              </button>
             </Link>
           </nav>
         </div>
@@ -30,21 +34,29 @@ export default function HomePage() {
             <div className={styles.badge}>
               <span>Supporting UC Davis Clubs</span>
             </div>
-            
-            <h1 className={styles.heroTitle}>
-              Support Local Fundraisers While Shopping Downtown
-            </h1>
-            
+
+            <h1 className={styles.heroTitle}>Shop Davis. Fuel UC Davis.</h1>
+
             <p className={styles.heroDescription}>
-              {'Discover fundraising events from UC Davis clubs and organizations. Support your community while enjoying downtown Davis.'}
+              {
+                "Shop, dine, and hang out at downtown Davis while supporting campus organizations and their fundraising goals all in one place"
+              }
             </p>
 
             <div className={styles.heroButtons}>
               <Link href="/fundraisers">
                 <button className={styles.primaryButton}>Start Supporting</button>
               </Link>
+
               <Link href="/create">
-                <button className={styles.secondaryButton}>Create Fundraiser</button>
+                <button className={styles.secondaryButton}>
+                  Create Fundraiser
+                </button>
+              </Link>
+
+              {/* NEW navy Learn more button */}
+              <Link href="/how-it-works">
+                <button className={styles.primaryButton}>Learn more</button>
               </Link>
             </div>
           </div>
@@ -59,7 +71,8 @@ export default function HomePage() {
               </div>
               <h3 className={styles.featureTitle}>Support Local Clubs</h3>
               <p className={styles.featureDescription}>
-                Help UC Davis student organizations raise funds for their activities and events.
+                Help UC Davis student organizations raise funds for their
+                activities and events
               </p>
             </div>
 
@@ -69,7 +82,8 @@ export default function HomePage() {
               </div>
               <h3 className={styles.featureTitle}>Find Events</h3>
               <p className={styles.featureDescription}>
-                Discover fundraising events happening around downtown Davis in one convenient place.
+                Discover fundraising events happening around downtown Davis in
+                one convenient place.
               </p>
             </div>
 
@@ -79,7 +93,8 @@ export default function HomePage() {
               </div>
               <h3 className={styles.featureTitle}>Shop & Support</h3>
               <p className={styles.featureDescription}>
-                Support fundraisers while shopping at your favorite downtown Davis locations.
+              Turn everyday coffee runs, desserts, and dinners into funding for
+              UC Davis organizations
               </p>
             </div>
           </div>

@@ -1,40 +1,49 @@
-import { NextRequest, NextResponse } from "next/server"
+// frontend/src/app/api/fundraisers/route.ts
 
-const BACKEND_URL = "http://localhost:4000"
+const BACKEND_URL = process.env.BACKEND_URL ?? "http://localhost:4001"
 
-// GET all fundraisers
+// GET /api/fundraisers  – called by the Fundraisers page
 export async function GET() {
   try {
-    const backendResponse = await fetch(`${BACKEND_URL}/api/fundraisers`, {
-      method: "GET",
-      headers: { "Content-Type": "application/json" },
+    const res = await fetch(`${BACKEND_URL}/api/fundraisers`, {
+      cache: "no-store",
     })
 
-    const data = await backendResponse.json()
-
-    if (backendResponse.ok) {
-      return NextResponse.json(data)
-    } else {
-      return NextResponse.json(
-        { message: "Failed to fetch fundraisers" },
-        { status: 500 }
-      )
+    if (!res.ok) {
+      console.error("Backend GET /api/fundraisers failed:", res.status)
+      return new Response("Backend error", { status: 500 })
     }
-  } catch (error) {
-    console.error("Error fetching fundraisers:", error)
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 }
-    )
+
+    const data = await res.json()
+
+    // Normalize to match the Fundraiser interface in page.tsx
+    const mapped = data.map((f: any) => ({
+      _id: f._id,
+      clubName: f.clubName,
+      // handle both eventName and fundraiserName just in case
+      eventName: f.eventName ?? f.fundraiserName ?? "",
+      location: f.location,
+      date: f.date ?? "",   // 👈 important
+      time: f.time ?? "",   // 👈 important
+      proceedsInfo: f.proceedsInfo,
+      instagramLink: f.instagramLink,
+      createdAt: f.createdAt,
+      updatedAt: f.updatedAt,
+    }))
+
+    return Response.json(mapped)
+  } catch (err) {
+    console.error("Error fetching fundraisers from backend:", err)
+    return new Response("Internal server error", { status: 500 })
   }
 }
 
-// POST new fundraiser
-export async function POST(request: NextRequest) {
+// POST /api/fundraisers – called by the Create form
+export async function POST(request: Request) {
   try {
     const body = await request.json()
 
-    const backendResponse = await fetch(`${BACKEND_URL}/api/fundraisers`, {
+    const res = await fetch(`${BACKEND_URL}/api/fundraisers`, {
       method: "POST",
       headers: {
         "Content-Type": "application/json",
@@ -42,21 +51,16 @@ export async function POST(request: NextRequest) {
       body: JSON.stringify(body),
     })
 
-    const data = await backendResponse.json()
-
-    if (backendResponse.ok) {
-      return NextResponse.json(data)
-    } else {
-      return NextResponse.json(
-        { message: data.message || "Failed to create fundraiser" },
-        { status: 400 }
-      )
+    if (!res.ok) {
+      const text = await res.text()
+      console.error("Backend POST /api/fundraisers failed:", res.status, text)
+      return new Response("Backend error", { status: 500 })
     }
-  } catch (error) {
-    console.error("Error creating fundraiser:", error)
-    return NextResponse.json(
-      { message: "Internal server error" },
-      { status: 500 }
-    )
+
+    const created = await res.json()
+    return Response.json(created, { status: 201 })
+  } catch (err) {
+    console.error("Error creating fundraiser:", err)
+    return new Response("Internal server error", { status: 500 })
   }
 }

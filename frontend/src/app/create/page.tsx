@@ -1,10 +1,10 @@
 "use client"
 
 import { useState } from "react"
-import { useRouter } from 'next/navigation'
+import { useRouter } from "next/navigation"
 import Link from "next/link"
-import { Heart, ArrowLeft } from 'lucide-react'
-import styles from './create.module.css'
+import { Heart, ArrowLeft } from "lucide-react"
+import styles from "./create.module.css"
 
 export default function CreateFundraiserPage() {
   const router = useRouter()
@@ -19,7 +19,9 @@ export default function CreateFundraiserPage() {
     instagramLink: "",
   })
 
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+  const handleChange = (
+    e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>,
+  ) => {
     setFormData({ ...formData, [e.target.name]: e.target.value })
   }
 
@@ -28,13 +30,13 @@ export default function CreateFundraiserPage() {
     setIsLoading(true)
 
     try {
-      const dateTimeString = `${formData.date}T${formData.time}:00`
-      
+      // 👇 This payload must match your Express/Mongoose schema
       const payload = {
         clubName: formData.clubName,
-        fundraiserName: formData.fundraiserName,
+        eventName: formData.fundraiserName, // map fundraiserName -> eventName
         location: formData.location,
-        dateTime: dateTimeString,
+        date: formData.date,                 // send date separately
+        time: formData.time,                 // send time separately
         proceedsInfo: formData.proceedsInfo,
         instagramLink: formData.instagramLink,
       }
@@ -60,7 +62,9 @@ export default function CreateFundraiserPage() {
       }
     } catch (error) {
       console.error("Error creating fundraiser:", error)
-      alert("Error creating fundraiser. Make sure your backend is running on http://localhost:4000")
+      alert(
+        "Error creating fundraiser. Make sure your backend is running on http://localhost:4001",
+      )
     } finally {
       setIsLoading(false)
     }
@@ -92,7 +96,7 @@ export default function CreateFundraiserPage() {
           <div>
             <h1 className={styles.pageTitle}>Create Fundraiser</h1>
             <p className={styles.pageDescription}>
-              Share your club's fundraising event with the community
+              Share your club&apos;s fundraising event with the community
             </p>
           </div>
         </div>
@@ -210,7 +214,11 @@ export default function CreateFundraiserPage() {
               </div>
 
               <div className={styles.formActions}>
-                <button type="submit" className={styles.submitButton} disabled={isLoading}>
+                <button
+                  type="submit"
+                  className={styles.submitButton}
+                  disabled={isLoading}
+                >
                   {isLoading ? "Creating..." : "Create Fundraiser"}
                 </button>
                 <Link href="/">
